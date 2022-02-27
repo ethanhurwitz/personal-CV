@@ -1,0 +1,15 @@
+name: "Ethan Hurwitz"
+navbar:
+  title: "Ethan Hurwitz"
+  right:
+    - text: "Home"
+      href: "https://ethanhurwitz.com"
+    # - text: "Projects"
+    #   href: "https://ethanhurwitz.com/projects"
+    # - text: "Publications"
+    #   href: "https://ethanhurwitz.com/publications"
+    # - text: "CV"
+    #   href: "https://ethanhurwitz.com/cv"
+    # - text: "Blog"
+    #   href: "https://ethanhurwitz.com/blog/"
+output_dir: "docs"
