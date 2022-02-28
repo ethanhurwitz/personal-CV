@@ -27,7 +27,7 @@ jobs:
 
       - name: install missing curl library
         run: |
-          sudo apt-get libcurl4-openssl-dev -y
+          'sudo apt-get libcurl4-openssl-dev -y'
 
       - uses: r-lib/actions/setup-renv@v1
       
