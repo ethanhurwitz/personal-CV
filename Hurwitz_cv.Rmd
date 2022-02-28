@@ -16,6 +16,10 @@ library(tidyverse)
 library(knitr)
 library(lubridate)
 library(glue)
+library(googlesheets4)
+
+######## rerun googlesheet syncing to make sure files are up to date!
+source("sync_w_gsheets.R", local = knitr::knit_global())
 
 ######## CREATE HELPER FUNCTIONS
 # function which takes a name and replaces the first name with initial and dot
