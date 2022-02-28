@@ -65,7 +65,6 @@ blank_year_when_repeated <- function(cv_entry_tibble){
            ))
 }
 
-
 ####### READ IN DATA
 #### publications #####
 publications <- read_csv("_content/publications.csv") %>% 
