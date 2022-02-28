@@ -254,11 +254,15 @@ span.talk-title {
 /* new test things below */
 
   /* title */
-.title h1 {
+.title2 {
   text-align: center;
   font-weight: bold;
   font-size: 2.3em;
   line-height: 110%;
+}
+
+.title {
+  display: none;
 }
 
 .subtitle {
