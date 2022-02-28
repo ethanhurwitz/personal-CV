@@ -50,9 +50,7 @@ jobs:
         run: Rscript -e 'rmarkdown::render_site(quiet = TRUE)'
         
       - name: create PDF
-        run: |
-          Rscript -e 'rmarkdown::render("Hurwitz_cv.Rmd")'
-          Rscript -e 'pagedown::chrome_print("Hurwitz_cv.html")'
+        run: Rscript -e 'pagedown::chrome_print(rmarkdown::render("Hurwitz_cv.Rmd"))'
 
       - name: Deploy to GitHub pages 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4

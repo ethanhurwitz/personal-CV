@@ -1,5 +1,6 @@
 library(tidyverse)
 library(googlesheets4)
+
 gs4_deauth()
 
 sheets <- c("cv_entries", 
