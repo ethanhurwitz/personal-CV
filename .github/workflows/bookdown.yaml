@@ -12,7 +12,7 @@ name: update cv
 
 jobs:
   updateCV:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       #GITHUB_PAT: ${{ secrets.GH_PAT}}
@@ -27,12 +27,20 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v1
       
-      - name: install packages missed by renv
-        run: |
-          R -e 'install.packages("bslib")'
-          R -e 'install.packages("downlit")'
-          R -e 'install.packages("xml2")'
-          R -e 'install.packages("Lock5withR")'
+      # - name: install packages missed by renv
+      #   run: |
+      #     R -e 'install.packages("bslib")'
+      #     R -e 'install.packages("downlit")'
+      #     R -e 'install.packages("xml2")'
+      #     R -e 'install.packages("Lock5withR")'
+      
+      - name: Cache renv
+        uses: actions/cache@v2
+        with:
+          path: ~/.local/share/renv
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
 
       - name: Build site
         run: Rscript -e 'rmarkdown::render_site(quiet = TRUE)'
