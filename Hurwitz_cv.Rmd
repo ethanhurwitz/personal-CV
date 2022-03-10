@@ -342,7 +342,7 @@ cv_entries %>%
 cv_entries %>% 
   filter(type == 'work' & subtype == "seniorTA") %>% 
     mutate(what = glue("<span class='cv-entry-title'>{institution}</span><br>",
-           "{department}<br>", "<b>{where}</b><br>",
+           "{department}<br><br>", "<b>{where}</b>",
            "<br>-- ", "{cv_entries %>% 
     filter(type == 'work' & subtype == 'seniorTA') %>%
     pull(additional_info) %>% gsub(';', '<br>-- ', .)}")) %>%
