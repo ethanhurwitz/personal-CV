@@ -344,7 +344,7 @@ cv_entries %>%
     mutate(what = glue("<span class='cv-entry-title'>{institution}</span><br>",
            "{department}<br>", "<b>{where}</b><br>",
            "<br>-- ", "{cv_entries %>% 
-    filter(type == 'work' & subtype == 'Hopkins') %>%
+    filter(type == 'work' & subtype == 'seniorTA') %>%
     pull(additional_info) %>% gsub(';', '<br>-- ', .)}")) %>%
   select(dateFormatted, what) %>% 
   kable()
