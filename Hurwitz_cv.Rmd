@@ -338,7 +338,7 @@ cv_entries %>%
 
 ### Senior TA
 
-```{r TA}
+```{r SeniorTA}
 cv_entries %>% 
   filter(type == 'work' & subtype == "seniorTA") %>% 
     mutate(what = glue("<span class='cv-entry-title'>{institution}</span><br>",
