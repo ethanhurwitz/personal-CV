@@ -163,8 +163,8 @@ cv_entries %>%
 ```{r journal publications}
 publications %>%
   filter(type == "journal article" & is.na(exclude)) %>% 
-  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span><br>",
-                         "<span class='cv-entry-title' style='padding-left: 20px'>{title}. </span>",
+  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span> ",
+                         "<span class='cv-entry-title'>{title}. </span>",
                          "<span class='publication-venue' style='font-style: italic;'>{publication}, {volume}</span>",
                          ", <span class='publication-venue'>{pages}. </span>",
                          "<span class='publication-doi'>{doi}. </span>")) %>%
@@ -189,8 +189,8 @@ publications %>%
     TRUE ~ ""
   )) %>% 
   # create citations
-  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span><br>",
-                         "<span class='cv-entry-title' style='padding-left: 20px'>{title}. </span>",
+  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span> ",
+                         "<span class='cv-entry-title'>{title}. </span>",
                          "<span class='publication-venue' style='font-style: italic;'>{publication}</span>",
                          ", <span class='publication-venue'>{pages}. </span>",
                          "<span class='conference-venue'>{venue}. </span>")) %>%
@@ -252,8 +252,8 @@ publications %>%
     TRUE ~ ""
   )) %>% 
   # create citations
-  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span><br>",
-                         "<span class='cv-entry-title' style='padding-left: 20px'>{title}. </span>",
+  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span> ",
+                         "<span class='cv-entry-title'>{title}. </span>",
                          "<span class='publication-venue' style='font-style: italic;'>{publication}</span>",
                          ", <span class='conference-venue'>{venue}. </span>")) %>%
   mutate(citation = gsub("NA", "", citation)) %>%
@@ -278,8 +278,8 @@ publications %>%
     TRUE ~ ""
   )) %>% 
   # create citations
-  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span><br>",
-                         "<span class='cv-entry-title' style='padding-left: 20px'>{title}. </span>",
+  mutate(citation = glue("<span class='publication-authors'>{authors_full} ({year}).</span> ",
+                         "<span class='cv-entry-title'>{title}. </span>",
                          "<span class='publication-venue' style='font-style: italic;'>{publication}</span>",
                          ", <span class='conference-venue'>{venue}. </span>")) %>%
   mutate(citation = gsub("NA", "", citation)) %>%
@@ -312,6 +312,18 @@ cv_entries %>%
 
 ## Teaching Experience
 
+### Instructor of Record
+
+```{r instructor}
+cv_entries %>% 
+  filter(type == 'teaching' & subtype == "instructor" & is.na(exclude)) %>% 
+  mutate(what = glue("<span class='cv-entry-title'>{what}</span><br>",
+                     "<span class='items' style='padding-left: 20px'>{where} </span>"),
+         year = ifelse(is.na(year), glue(""), year)) %>%
+  select(year, what) %>% 
+  kable()
+```
+
 ### Teaching Assistanceships
 
 ```{r TA}
@@ -324,15 +336,17 @@ cv_entries %>%
   kable()
 ```
 
-### Instructor of Record
+### Senior TA
 
-```{r instructor}
+```{r TA}
 cv_entries %>% 
-  filter(type == 'teaching' & subtype == "instructor" & is.na(exclude)) %>% 
-  mutate(what = glue("<span class='cv-entry-title'>{what}</span><br>",
-                     "<span class='items' style='padding-left: 20px'>{where} </span>"),
-         year = ifelse(is.na(year), glue(""), year)) %>%
-  select(year, what) %>% 
+  filter(type == 'work' & subtype == "seniorTA") %>% 
+    mutate(what = glue("<span class='cv-entry-title'>{institution}</span><br>",
+           "{department}<br>", "<b>{where}</b><br>",
+           "<br>-- ", "{cv_entries %>% 
+    filter(type == 'work' & subtype == 'Hopkins') %>%
+    pull(additional_info) %>% gsub(';', '<br>-- ', .)}")) %>%
+  select(dateFormatted, what) %>% 
   kable()
 ```
 
