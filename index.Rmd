@@ -11,7 +11,7 @@ output:
 
 If you're reading this, you may be like I was at one point. Realizing it had been several *years* since I last updated my CV. Overwhelmed at the thought of doing so. "Eh, it's not like anyone is reading this anyway!" Once you have the first member of your grad school cohort graduate though, you start getting that, "Shit... I need to get my stuff together" moment. After some quick googling, I realized there were ways to make this process much easier and less time consuming!
 
-This repo builds off the work previously done by Nick Strayer with his [data-driven cv](http://nickstrayer.me/datadrivencv/) and Ulrik Lyngs' [modifications](https://github.com/ulyngs/pagedown-cv/). They created tools to build a cv with [`rmarkdown`](https://rmarkdown.rstudio.com) and [`pagedown`](https://github.com/rstudio/pagedown). Doing this made the cv creation/updating process much less of a PITA. Since the content and output are stored separately, we can make changes/additions to our cv data file without having to worry about changing all the layouts and generating process. All of that can be handled by `pagedown` and some `css` files that we'll rarely have to modify!
+This repo builds off the work previously done by Nick Strayer with his [data-driven cv](http://nickstrayer.me/datadrivencv/) and Ulrik Lyngs' [modifications](https://github.com/ulyngs/pagedown-cv/). They created tools to build a cv with [`rmarkdown`](https://rmarkdown.rstudio.com) and [`pagedown`](https://github.com/rstudio/pagedown). Doing this made the CV creation/updating process much less of a PITA. Since the content and output are stored separately, we can make changes/additions to our CV data file without having to worry about changing all the layouts and generating process. All of that can be handled by `pagedown` and some `css` files that we'll rarely have to modify!
 
 ## How does it work?
 
@@ -23,11 +23,29 @@ The CSV files with the content are just local copies of the corresponding tabs i
 
 The R script **\_content/sync_w_gsheets.R** grabs the current content of the 'cv_entries' and the 'publications' tabs in the google sheet and stores it in the **\_content** folder."
 
-I generally liked the layout and aesthetics of Ulrik's, however, I wanted to make some slight changes including formatting the references in proper APA format. The biggest change I wanted to make was setting up github actions so that the cv could be both automatically generated **and** updated on my website.
+I generally liked the layout and aesthetics of Ulrik's template. However, I wanted to make some slight changes including formatting the references in proper APA format. The biggest change I wanted to make was setting up github actions so that the CV could be both automatically generated **and** updated on my website.
 
-I host these files in this repository, and have set up github actions to periodically re-run the scripts that compile and generate my CV (in both [html](Hurwitz_cv.html) and [pdf](Hurwitz_cv.pdf) formats!), and link the URL to the CV section of my website. Thus, all I have to do is add new information to that googlesheet, and my CV will be automatically updated! I simultaneously make my life easier and remove a large swath of the excuses I had for not keeping my CV updated!
+I host these files in this repository, and have set up github actions to periodically re-run the scripts that compile and generate my CV (in both [html](Hurwitz_cv.html) and [pdf](Hurwitz_cv.pdf) formats!). I set up link to this URL in the CV section of my website. Thus, all I have to do is add new information to that googlesheet, and my CV will be automatically updated! I simultaneously make my life easier and remove a large swath of the excuses I had for not keeping my CV updated!
 
-## How can I use it?
-To use this for your own CV, download/clone/fork [this GitHub repo](https://github.com/ethanhurwitz/personal-CV), or Ulrik's [original](https://github.com/ulyngs/pagedown-cv/) (in his, you will find other layouts as well).
+## How can I use this?!
+To use this for your own CV, there's a couple things you need to do:
 
-After that, just update the content in the CSV files with your own cv data (or create your own googlesheet) and tweak the **.Rmd** files as needed.
+  1. Download/clone/fork [this GitHub repo](https://github.com/ethanhurwitz/personal-CV) to your own account.
+  
+  2. Create your own googlesheet document (you can make a copy and edit [this one](https://docs.google.com/spreadsheets/d/1PRMlBqND_czYsTtJjgCejQsq6IeDa2T_nV8UkqlQfrw/edit?usp=sharing) and update with all your CV information. Alternatively, you could just update the content in the CSV files in the repo, but that would then require you to constantly edit these files any time you need to update!
+  
+  3. Update the URL to your googlesheet by changing the `googlesheetLink` variable in the "source.R" file. 
+
+  4. Rename the **.Rmd** file with your own name (instead of Hurwitz), and tweak that file as needed! Specifically, change the name/social accounts and contacts/etc.
+  
+  5. Go to the YAML file (personal-CV/.github/workflows/bookdown.yaml) and update line 53 (the create PDF action) to the file name you changed in step 4.
+  
+  6. (Optional) Change the color of the bar that contains the contact/social info by going to the CSS file and updating the `background-color` parameter under ".contacts"
+
+
+
+### I don't really like / know much coding...
+
+This part is for you, then! The other change I wanted to make was to make onboarding to this project a little easier for people who don't want to do fine-grained tinkering with HTML or R. There is a file named "Hurwitz_cv_simple.Rmd". This is what you will want to use! You never have to open this file if you don't want. All you have to do is open the file called "source.R", input your information there, and toggle which elements you want shown by setting them equal to TRUE or FALSE!
+
+You will still have to follow steps 1-6 above, but you don't have to make any tweaks to the actual .rmd files themselves!

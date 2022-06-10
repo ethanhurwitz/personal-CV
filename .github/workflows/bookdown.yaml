@@ -5,8 +5,8 @@ on:
     branches: [main, master]
   workflow_dispatch:
   schedule:
-    # run every day at 11 PM
-    - cron: '0 23 * * *'
+    # run every Sunday at 11 PM
+    - cron: '0 23 * * 0'
 
 name: update cv
 

@@ -97,7 +97,9 @@ cv_entries <- read_csv("_content/cv_entries.csv") %>%
 ```
 
 <!-- ::: {.title} -->
+
 <h1 class="title2">Ethan Hurwitz</h1>
+
 <!-- ::: -->
 
 <div class="subtitle">University of California, San Diego<br>
@@ -108,11 +110,12 @@ Department of Psychology</div><br>
         <td><i class="fa fa-envelope"></i> ehurwitz\@ucsd.edu</td>
         <td><i class="fas fa-globe"></i> www.EthanHurwitz.com</td>
         <td><i class="fab fa-github"></i> EthanHurwitz</td>
-        <!-- <td><i class="ai ai-osf"></i> OSF: phyeb</td> -->
-        <!-- <td><a href="https://scholar.google.com/citations?user=hciXZQQAAAAJ"><i class="ai ai-google-scholar ai-lg"></i> Scholar</a></td> -->
+        
+  <!-- <td><i class="ai ai-osf"></i> OSF: phyeb</td> -->
+  <!-- <td><a href="https://scholar.google.com/citations?user=hciXZQQAAAAJ"><i class="ai ai-google-scholar ai-lg"></i> Scholar</a></td> -->
 
     </tr>
-</table> 
+</table>
 
 
 <div class="cv-entries">

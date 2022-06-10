@@ -317,7 +317,8 @@ h2.box {
     table-layout: fixed;
     /*border: 1px solid black;*/
     border-collapse: collapse;
-    background-color: lightblue;
+    /* The color below is for the bar under your name*/
+    background-color: #79c0ed;
 
 }
 
