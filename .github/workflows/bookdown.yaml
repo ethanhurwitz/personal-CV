@@ -29,7 +29,7 @@ jobs:
         run: |
             sudo apt-get install -y libcurl4-openssl-dev
 
-      - uses: r-lib/actions/setup-renv@v1
+      - uses: r-lib/actions/setup-renv@v2
       
       # - name: install packages missed by renv
       #   run: |
