@@ -253,6 +253,10 @@ span.talk-title {
 
 /* new test things below */
 
+br.pageBreak { 
+  page-break-after: always;
+}
+
   /* title */
 .title2 {
   text-align: center;
