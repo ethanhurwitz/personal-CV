@@ -32,9 +32,9 @@ jobs:
 #      - uses: r-lib/actions/setup-renv@v2
 
       - name: Setup Chrome
-        uses: ShinnyaUeoka/setup-chrome@v1
-        with:
-          chrome-version: latest
+        uses: browser-actions/setup-chrome@v1
+        # with:
+        #   chrome-version: latest
 
       - name: install R packages
         run: |
