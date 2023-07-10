@@ -193,7 +193,7 @@ publications %>%
   blank_year_when_repeated() %>%
   #select(year, number, citation) %>%
   select(year, citation) %>%
-  manual_page_break_after_row("citation", "Survey of subjective") %>%
+  manual_page_break_after_row("citation", "Survey of entity") %>%
   knitr::kable()
 ```
 
