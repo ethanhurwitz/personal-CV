@@ -94,9 +94,13 @@ publications <- read_csv("_content/publications.csv") %>%
 
 #Add months to dates
 cv_entries <- read_csv("_content/cv_entries.csv") %>% 
+  mutate(date_end = lubridate::parse_date_time(date_end, orders = c("ymd", "mdy", "dmy")),
+         date_end = as.character(date_end)) %>%
+  print() %>%
   mutate(year = year(date),
          month = months(date),
          month = str_sub(month, 1, 3)) %>%
+  print() %>%
   # mutate(year_end = case_when(
   #   date_end == "Present" ~ date_end,
   #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
@@ -112,6 +116,7 @@ cv_entries <- read_csv("_content/cv_entries.csv") %>%
     #is.na(date_end) ~ date_end
     is.na(date_end) ~ as.character(NA)
   )) %>%
+  print() %>%
   mutate(dateFormatted = ifelse((is.na(year_end) | is.na(month_end) | (year == year_end & month == month_end)),
                                 str_c(month, " ", year),
                                 str_c(month, " ", year, " ---<br>", month_end, " ", year_end)))
