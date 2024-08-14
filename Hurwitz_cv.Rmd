@@ -97,15 +97,20 @@ cv_entries <- read_csv("_content/cv_entries.csv") %>%
   mutate(year = year(date),
          month = months(date),
          month = str_sub(month, 1, 3)) %>%
+  # mutate(year_end = case_when(
+  #   date_end == "Present" ~ date_end,
+  #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
+  #   is.na(date_end) ~ date_end
+  # ),
   mutate(year_end = case_when(
-    date_end == "Present" ~ date_end,
     !is.na(date_end) ~ str_sub(date_end, 1, 4),
-    is.na(date_end) ~ date_end
+    is.na(date_end) ~ as.character(NA)
   ),
   month_end = case_when(
-    date_end == "Present" ~ "",
+    #date_end == "Present" ~ "",
     !is.na(date_end) ~ str_sub(months(as_date(date_end)), 1, 3),
-    is.na(date_end) ~ date_end
+    #is.na(date_end) ~ date_end
+    is.na(date_end) ~ as.character(NA)
   )) %>%
   mutate(dateFormatted = ifelse((is.na(year_end) | is.na(month_end) | (year == year_end & month == month_end)),
                                 str_c(month, " ", year),
@@ -144,9 +149,12 @@ cv_entries %>%
   filter(type == 'education' & is.na(exclude)) %>%
   mutate(what = glue("<span class='cv-entry-title'><b>{what}</b></span>, {where}<br>", 
                       "{additional_info}<br>",
-                      "<span class='thesis-title'>{additional_info2}</span>")) %>%
+                      "<span class='thesis-title'>Dissertation title:  <i>{additional_info2}</i></span>")) %>%
   mutate(what = gsub("NA", "", what)) %>%
   mutate(what = gsub("<br><br>", "<br>", what)) %>%
+  mutate(what = ifelse(!grepl("Ph.D", what), 
+                       gsub("Dissertation title: ", "", what),
+                       what)) %>%
   #select(year, what) %>% 
   select(dateFormatted, what) %>%
   kable()
