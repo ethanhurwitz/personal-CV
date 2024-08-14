@@ -201,7 +201,7 @@ publications %>%
   blank_year_when_repeated() %>%
   #select(year, number, citation) %>%
   select(year, citation) %>%
-  manual_page_break_after_row("citation", "Near-Death") %>%
+  #manual_page_break_after_row("citation", "Near-Death") %>%
   knitr::kable()
 ```
 
@@ -334,6 +334,7 @@ cv_entries %>%
   blank_year_when_repeated() %>%
   #select(year, number, citation) %>%
   select(year, citation) %>%
+  #manual_page_break_after_row("citation", "An overview of psilocybin") %>%
   knitr::kable()
 
 ```
@@ -387,7 +388,8 @@ cv_entries %>%
   filter(type == 'professional-activities' & subtype == "reviewer" & is.na(exclude)) %>% 
   mutate(where = glue("<span class='cv-entry-title'>{where}</span>"),
          year = ifelse(is.na(year), glue(""), year)) %>%
-  select(year, where) %>% 
+  select(year, where) %>%
+  #manual_page_break_after_row("where", "John Templeton") %>%
   kable()
 ```
 
