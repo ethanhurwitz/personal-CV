@@ -171,7 +171,7 @@ jobs:
             ${{ runner.os }}-renv-
 
       - name: Build site
-        run: Rscript -e 'rmarkdown::render_site(quiet = TRUE)'
+        run: Rscript -e 'rmarkdown::render_site(quiet = FALSE)'
         
       - name: create PDF
         run: Rscript -e 'pagedown::chrome_print(rmarkdown::render("Hurwitz_cv.Rmd"), output = "docs/Hurwitz_cv.pdf")'
