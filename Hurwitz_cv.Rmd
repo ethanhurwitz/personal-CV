@@ -93,14 +93,30 @@ publications <- read_csv("_content/publications.csv") %>%
   mutate(venue_abbrev = if_else(!is.na(venue_abbrev), str_c(venue_abbrev, ": "), "")) # make the abbrevation an empty string if NA; add a colon and a space after if it if there is one
 
 #Add months to dates
-cv_entries <- read_csv("_content/cv_entries.csv") %>% 
+cv_entries <- read_csv("_content/cv_entries.csv")
+print("no error 1")
+
+cv_entries = cv_entries %>%
   mutate(date_end = lubridate::parse_date_time(date_end, orders = c("ymd", "mdy", "dmy")),
-         date_end = as.character(date_end)) %>%
-  print() %>%
+         date_end = as.character(date_end))
+print("no error 2")
+
+cv_entries = cv_entries %>%
   mutate(year = year(date),
          month = months(date),
-         month = str_sub(month, 1, 3)) %>%
-  print() %>%
+         month = str_sub(month, 1, 3))
+print("no error 3")
+
+cv_entries = cv_entries %>%
+  mutate(month_end = case_when(
+    #date_end == "Present" ~ "",
+    !is.na(date_end) ~ str_sub(months(as_date(date_end)), 1, 3),
+    #is.na(date_end) ~ date_end
+    is.na(date_end) ~ as.character(NA)
+  ))
+print("no error 4")
+
+cv_entries = cv_entries %>%
   # mutate(year_end = case_when(
   #   date_end == "Present" ~ date_end,
   #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
@@ -109,18 +125,14 @@ cv_entries <- read_csv("_content/cv_entries.csv") %>%
   mutate(year_end = case_when(
     !is.na(date_end) ~ str_sub(date_end, 1, 4),
     is.na(date_end) ~ as.character(NA)
-  ),
-  month_end = case_when(
-    #date_end == "Present" ~ "",
-    !is.na(date_end) ~ str_sub(months(as_date(date_end)), 1, 3),
-    #is.na(date_end) ~ date_end
-    is.na(date_end) ~ as.character(NA)
-  )) %>%
-  print() %>%
+  ))
+print("no error 5")
+
+cv_entries = cv_entries %>%
   mutate(dateFormatted = ifelse((is.na(year_end) | is.na(month_end) | (year == year_end & month == month_end)),
                                 str_c(month, " ", year),
                                 str_c(month, " ", year, " ---<br>", month_end, " ", year_end)))
-
+print("no error 6")
 ```
 
 <!-- ::: {.title} -->
