@@ -122,10 +122,11 @@ cv_entries = cv_entries %>%
   #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
   #   is.na(date_end) ~ date_end
   # ),
-  mutate(year_end = case_when(
-    !is.na(date_end) ~ str_sub(date_end, 1, 4),
-    is.na(date_end) ~ as.character(NA)
-  ))
+  # mutate(year_end = case_when(
+  #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
+  #   is.na(date_end) ~ as.character(NA)
+  # ))
+  mutate(year_end = NA)
 print("no error 5")
 
 cv_entries = cv_entries %>%
