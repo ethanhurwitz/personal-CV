@@ -93,24 +93,43 @@ publications <- read_csv("_content/publications.csv") %>%
   mutate(venue_abbrev = if_else(!is.na(venue_abbrev), str_c(venue_abbrev, ": "), "")) # make the abbrevation an empty string if NA; add a colon and a space after if it if there is one
 
 #Add months to dates
+# cv_entries <- read_csv("_content/cv_entries.csv") %>% 
+#   mutate(year = year(date),
+#          month = months(date),
+#          month = str_sub(month, 1, 3)) %>%
+#   # mutate(year_end = case_when(
+#   #   date_end == "Present" ~ date_end,
+#   #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
+#   #   is.na(date_end) ~ date_end
+#   # ),
+#   mutate(year_end = case_when(
+#     !is.na(date_end) ~ str_sub(date_end, 1, 4),
+#     is.na(date_end) ~ as.character(NA)
+#   ),
+#   month_end = case_when(
+#     #date_end == "Present" ~ "",
+#     !is.na(date_end) ~ str_sub(months(as_date(date_end)), 1, 3),
+#     #is.na(date_end) ~ date_end
+#     is.na(date_end) ~ as.character(NA)
+#   )) %>%
+#   mutate(dateFormatted = ifelse((is.na(year_end) | is.na(month_end) | (year == year_end & month == month_end)),
+#                                 str_c(month, " ", year),
+#                                 str_c(month, " ", year, " ---<br>", month_end, " ", year_end)))
+
 cv_entries <- read_csv("_content/cv_entries.csv") %>% 
   mutate(year = year(date),
          month = months(date),
-         month = str_sub(month, 1, 3)) %>%
-  # mutate(year_end = case_when(
-  #   date_end == "Present" ~ date_end,
-  #   !is.na(date_end) ~ str_sub(date_end, 1, 4),
-  #   is.na(date_end) ~ date_end
-  # ),
+         month = str_sub(month, 1, 3),
+         date_end = as.character(date_end)) %>%
   mutate(year_end = case_when(
+    date_end == "Present" ~ date_end,
     !is.na(date_end) ~ str_sub(date_end, 1, 4),
-    is.na(date_end) ~ as.character(NA)
+    is.na(date_end) ~ date_end
   ),
   month_end = case_when(
-    #date_end == "Present" ~ "",
+    date_end == "Present" ~ "",
     !is.na(date_end) ~ str_sub(months(as_date(date_end)), 1, 3),
-    #is.na(date_end) ~ date_end
-    is.na(date_end) ~ as.character(NA)
+    is.na(date_end) ~ date_end
   )) %>%
   mutate(dateFormatted = ifelse((is.na(year_end) | is.na(month_end) | (year == year_end & month == month_end)),
                                 str_c(month, " ", year),
@@ -120,7 +139,7 @@ cv_entries <- read_csv("_content/cv_entries.csv") %>%
 
 <!-- ::: {.title} -->
 
-<h1 class="title2">Ethan Hurwitz, M.A.</h1>
+<h1 class="title2">Ethan Hurwitz, Ph.D.</h1>
 
 <!-- ::: -->
 
@@ -141,6 +160,20 @@ Department of Psychology</div><br>
 
 
 <div class="cv-entries">
+
+## Academic Positions
+
+```{r academic_positions}
+cv_entries %>% 
+  filter(type == 'academic_positions' & is.na(exclude)) %>%
+  mutate(what = glue("<span class='cv-entry-title'><b>{what}</b></span>, {where}<br>", 
+                      "{department}<br>")) %>%
+  mutate(what = gsub("NA", "", what)) %>%
+  mutate(what = gsub("<br><br>", "<br>", what)) %>%
+  #select(year, what) %>% 
+  select(dateFormatted, what) %>%
+  kable()
+```
 
 ## Education
 
@@ -180,6 +213,7 @@ cv_entries %>%
   mutate(what = ifelse(is.na(where), glue("<span class='cv-entry-title'>{what}</span>"), glue("<span class='cv-entry-title'>{what}</span>, {where}"))) %>%  
   blank_year_when_repeated() %>% 
   select(year, what) %>% 
+  manual_page_break_after_row("what", "Cognitive") %>%
   kable()
 ```
 
@@ -202,7 +236,9 @@ publications %>%
   #select(year, number, citation) %>%
   select(year, citation) %>%
   #manual_page_break_after_row("citation", "Near-Death") %>%
-  knitr::kable()
+  knitr::kable() %>%
+  gsub("1990", "Under Review", .) %>%
+  gsub(" </span><span class='publication-venue' style='font-style: italic;'>, </span>, <span class='publication-venue'>. </span><span class='publication-doi'>. </span>", "", .)
 ```
 
 ### Peer-Reviewed Conference Publications
